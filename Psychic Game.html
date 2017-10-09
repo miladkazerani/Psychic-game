@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Psychic Game</title>
+
+</head>
+<body>
+
+  <h1>Guess A Letter</h1>
+  
+  <h2>Wins: <span id="wins"></span></h2>
+  <h2>Losses: <span id="losses"></span></h2>
+  <h2>Guesses Left: <span id="guesses-left"></span></h2>
+  <h2>Your Guesses So Far: <span id="guesses"></span></h2>
+
+  <script>
+
+   
+      var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var userGuess = "";
+      var wins = 0;
+      var losses = 0;
+      var guessesSoFar = "";
+      var guessesLeft = 10;
+      var randomIndex = 0;
+      var randomLetter = "" ;
+
+
+      function updatePage () {
+        document.getElementById("wins").innerHTML = wins;
+        document.getElementById("losses").innerHTML = losses;
+        document.getElementById("guesses-left").innerHTML = guessesLeft;
+        document.getElementById("guesses").innerHTML = guessesSoFar;
+      }
+
+     
+      function reStart(){
+        randomIndex = Math.floor((Math.random() * letters.length)); 
+        randomLetter = letters[randomIndex];
+        console.log("randomLetter", randomLetter);
+        guessesLeft = 10;
+        guessesSoFar = "";
+        updatePage();  
+      }
+
+
+      updatePage();
+
+     
+      var randomIndex = Math.floor((Math.random() * letters.length));
+
+      
+      var randomLetter = letters[randomIndex];
+
+     
+      console.log("randomLetter", randomLetter);
+
+     
+      document.onkeyup = function(){
+        
+        
+        userGuess = event.key.toUpperCase();
+
+        
+        if(letters.includes(userGuess))
+        { 
+          console.log("userGuess", userGuess);
+          guessesSoFar = guessesSoFar + userGuess;
+
+          guessesLeft--;  
+          
+          updatePage();         
+
+            
+          if( randomLetter === userGuess)
+          {
+            console.log("you win");
+            wins++;
+            updatePage();
+            reStart();
+          }
+        
+          
+          if(guessesLeft < 1)
+          {
+            console.log("you lose");
+            losses++;
+            updatePage();
+            reStart();
+          } 
+        }
+        else  
+        {
+          alert("Please Enter a letter");
+        }
+
+      };
+
+
+  </script> 
+
+</body>
+</html>
